@@ -1,0 +1,23 @@
+php artisan tinker
+>>> bcrypt('123456');
+
+login-->time-->authentication
+-----------------
+composer require laravel/ui
+php artisan ui bootstrap --auth
+npm install && npm run dev
+php artisan migrate
+
+
+php artisan make:controller InventoryController
+
+php artisan make:model Inventory
+
+
+php artisan make:migration create_mytable_table
+
+truncate tables
+--------
+php artisan make:seeder TruncateTablesSeeder
+php artisan db:seed --class=TruncateTablesSeeder
+
