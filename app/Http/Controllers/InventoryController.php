@@ -214,12 +214,17 @@ public function Insertproduct(Request $request)
     }
 }
 }
-public function getProducts()
+public function getProducts(Request $request)
 {
- $products = DB::table('products as pd')
+  $query  = DB::table('products as pd')
  ->join('categories as c', 'pd.category_id', '=', 'c.id')
- ->select('pd.*', 'c.name as category_name')
- ->get();
+ ->select('pd.*', 'c.name as category_name');
+ 
+    if ($request->filled('category_id')) {
+        $query->where('pd.category_id', $request->category_id);
+    }
+
+    $products = $query->get();
  return view('admin.inventory.addproduct', compact('products'));
 }
 public function editProductdetails(Request $request)

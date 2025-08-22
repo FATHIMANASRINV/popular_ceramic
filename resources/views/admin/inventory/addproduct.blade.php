@@ -19,6 +19,24 @@
 </style>
 @endsection
 @section('content')
+<div class="w-full px-6 py-6 mx-auto">
+	<div class="max-w-md bg-white shadow-lg rounded-2xl p-6">
+		<form method="GET" action="{{ route('admin.inventory.addproduct') }}">
+			<label for="categoryName" class="block text-sm font-medium text-gray-700 mb-1">
+				Category
+			</label>
+			<select id="categorynameidss" name="category_id" style="width: 100%;">
+				<option value="">Select category</option>
+			</select>
+			<div class="flex justify-end">
+				<button  
+				class="mt-4 px-6 py-2 font-bold text-white uppercase rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 text-xs tracking-tight shadow-md hover:scale-105 transition">
+				Submit
+			</button>
+		</form>
+	</div>
+</div>
+</div>
 <div id="addproductModal"
 class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-black/30 backdrop-blur-lg hidden">
 <div class="modal-content bg-white rounded-2xl shadow-xl p-6 w-1/2 max-w-3xl mx-4">
@@ -33,9 +51,6 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 	<form id="ProductForm">
 		@csrf
 		<input type="hidden" name="submit" value="add">
-
-
-
 		<label for="categoryName" class="block text-sm font-medium text-gray-700 mb-1">
 			Product Name
 		</label>
@@ -208,6 +223,29 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 			},
 			cache: true
 		}
+	});$('#categorynameidss').select2({
+		placeholder: 'Select a Category',
+		dropdownParent: $('#categorynameidss').parent(), 
+		ajax: {
+			url: '{{ route("inventory.categorysearch") }}',
+			method: 'POST',   
+			dataType: 'json',
+			delay: 250,
+			headers: {
+				'X-CSRF-TOKEN': '{{ csrf_token() }}'
+			},
+			data: function(params) {
+				return { q: params.term };
+			},
+			processResults: function(data) {
+				return {
+					results: $.map(data, function(item) {
+						return { id: item.id, text: item.name };
+					})
+				};
+			},
+			cache: true
+		}
 	});
 	$('#ProductForm').on('submit', function(e) {
 		e.preventDefault(); 
@@ -269,40 +307,40 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 		});
 	});
 	$(document).on('submit', '#editProductForm', function(e) {
-    e.preventDefault();
+		e.preventDefault();
 
-    $.ajax({
-        url: "{{ route('inventory.Insertproduct') }}",
-        method: "POST",
-        data: $(this).serialize(),
-        success: function(response) {
-            if (response.status) {
-                $('#editProductModal').addClass('hidden');
-                toastr.success(response.message);   
-                $('#editProductForm')[0].reset(); 
-                $('#categorynameid').empty().trigger('change');
-                $('#editProductForm .error-text').empty();
-            } else {
-                toastr.error(response.message || 'Something went wrong!'); 
-            }
-        },
-        error: function(xhr) {
-            if (xhr.status === 422) {
-                let errors = xhr.responseJSON.errors;
-                $('#editProductForm .error-text').empty();
-                $.each(errors, function(field, messages) {
-                    let errorElement = $('#editProductForm #' + field + 'Error');
-                    if (errorElement.length) {
-                        errorElement.empty().text(messages[0]);
-                    }
-                });
-                toastr.error('Please fix the errors and try again.'); 
-            } else {
-                toastr.error('Unexpected error occurred.');
-            }
-        }
-    });
-});
+		$.ajax({
+			url: "{{ route('inventory.Insertproduct') }}",
+			method: "POST",
+			data: $(this).serialize(),
+			success: function(response) {
+				if (response.status) {
+					$('#editProductModal').addClass('hidden');
+					toastr.success(response.message);   
+					$('#editProductForm')[0].reset(); 
+					$('#categorynameid').empty().trigger('change');
+					$('#editProductForm .error-text').empty();
+				} else {
+					toastr.error(response.message || 'Something went wrong!'); 
+				}
+			},
+			error: function(xhr) {
+				if (xhr.status === 422) {
+					let errors = xhr.responseJSON.errors;
+					$('#editProductForm .error-text').empty();
+					$.each(errors, function(field, messages) {
+						let errorElement = $('#editProductForm #' + field + 'Error');
+						if (errorElement.length) {
+							errorElement.empty().text(messages[0]);
+						}
+					});
+					toastr.error('Please fix the errors and try again.'); 
+				} else {
+					toastr.error('Unexpected error occurred.');
+				}
+			}
+		});
+	});
 
 </script>
 @endsection

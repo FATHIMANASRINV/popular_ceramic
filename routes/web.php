@@ -78,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::POST('admin/inventory/Insertproduct', [InventoryController::class, 'Insertproduct'])->name('inventory.Insertproduct');
 
-    Route::get('admin/inventory/addproduct', [InventoryController::class, 'getProducts'])->name('admin.inventory.addproduct');
+    Route::match(['get','post'], 'admin/inventory/addproduct', [InventoryController::class, 'getProducts'])->name('admin.inventory.addproduct');
     Route::get('admin/inventory/editProductdetails', [InventoryController::class, 'editProductdetails'])->name('inventory.editProductdetails');
 
 Route::get('/', [App\Http\Controllers\WebsiteController::class, 'getWebsiteIndexDetails'])
