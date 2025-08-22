@@ -1,0 +1,1 @@
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_type`) VALUES (NULL, 'bengali', 'bengali@123.com', NULL, '$2y$10$n.kZLzguPoTFW.3q5FL1l.1.fcOoMl46Y66BrEkFPKai7eG950pZ2', NULL, NULL, NULL, 'staff'); 

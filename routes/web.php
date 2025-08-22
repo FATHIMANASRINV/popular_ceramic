@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventoryController;
+use Illuminate\Support\Facades\Auth; 
 
 /*
 |--------------------------------------------------------------------------
@@ -38,14 +39,11 @@ Route::get('/', function () {
 //     Route::get('/reset-password/{id}', ResetPassword::class)->name('reset-password')->middleware('signed');
 // });
 Auth::routes();
-Route::middleware(['auth'])->group(function () {
+
+Route::middleware(['auth', 'checkUserType:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard.index');
     })->name('admin.dashboard');
-
-    Route::get('/user/dashboard', function () {
-        return view('user.dashboard.index');
-    })->name('user.dashboard');
 
     Route::get('/admin/inventory/addproduct', function () {
         return view('admin.inventory.addproduct');
@@ -56,33 +54,24 @@ Route::middleware(['auth'])->group(function () {
     })->name('admin.inventory.addcategory');
 
     Route::post('admin/inventory/store', [InventoryController::class, 'store'])->name('inventory.store');
-
-
-
-
-
     Route::get('admin/inventory/editcategorydetails', [InventoryController::class, 'editcategorydetails'])->name('inventory.editcategorydetails');
 
-
-
     Route::get('admin/inventory/addcategory', [InventoryController::class, 'getcategories'])->name('admin.inventory.addcategory');
-
-
-    Route::get(
-        'admin/inventory/getcategoriesDatatable',
-        [InventoryController::class, 'getcategoriesDatatable']
-    )->name('inventory.getcategoriesDatatable');
+    Route::get('admin/inventory/getcategoriesDatatable', [InventoryController::class, 'getcategoriesDatatable'])->name('inventory.getcategoriesDatatable');
 
     Route::match(['get', 'post'], 'admin/inventory/categoryselect2', [InventoryController::class, 'categoryselect2'])->name('inventory.categorysearch');
 
-
-    Route::POST('admin/inventory/Insertproduct', [InventoryController::class, 'Insertproduct'])->name('inventory.Insertproduct');
-
+    Route::post('admin/inventory/Insertproduct', [InventoryController::class, 'Insertproduct'])->name('inventory.Insertproduct');
     Route::match(['get','post'], 'admin/inventory/addproduct', [InventoryController::class, 'getProducts'])->name('admin.inventory.addproduct');
     Route::get('admin/inventory/editProductdetails', [InventoryController::class, 'editProductdetails'])->name('inventory.editProductdetails');
+});
+
+Route::middleware(['auth', 'checkUserType:staff'])->group(function () {
+    Route::get('/staff/dashboard', function () {
+        return view('staff.dashboard.index');
+    })->name('staff.dashboard');
+});
 
 Route::get('/', [App\Http\Controllers\WebsiteController::class, 'getWebsiteIndexDetails'])
-     ->name('website.index');
+    ->name('website.index');
 
-
-});
