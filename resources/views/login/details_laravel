@@ -21,3 +21,8 @@ truncate tables
 php artisan make:seeder TruncateTablesSeeder
 php artisan db:seed --class=TruncateTablesSeeder
 
+php artisan view:clear
+php artisan route:clear
+php artisan config:clear
+php artisan cache:clear
+

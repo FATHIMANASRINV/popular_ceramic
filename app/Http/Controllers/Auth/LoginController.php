@@ -33,6 +33,8 @@ class LoginController extends Controller
         }
         if (auth()->user()->user_type == 'user') {
             return '/user/dashboard';
+        } if (auth()->user()->user_type == 'staff') {
+            return '/staff/dashboard';
         }
         return '/home'; 
     }

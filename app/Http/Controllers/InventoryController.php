@@ -8,14 +8,14 @@ use DataTables;
 
 class InventoryController extends Controller
 {
-   public function store(Request $request)
-   {
+ public function store(Request $request)
+ {
 
     if($request->submit=='add'){     
-       $validator = Validator::make($request->all(), [
+     $validator = Validator::make($request->all(), [
         'categoryName' => 'required|string|unique:categories,name',
     ]);
-       if ($validator->fails()) {
+     if ($validator->fails()) {
         return response()->json([
             'status' => false,
             'errors' => $validator->errors()
@@ -134,12 +134,12 @@ public function categoryselect2(Request $request)
 public function Insertproduct(Request $request)
 {
     if($request->submit=='add'){     
-       $validator = Validator::make($request->all(), [
+     $validator = Validator::make($request->all(), [
         'productname' => 'required|string|unique:products,name',
         'category_id' => 'required|string',
         'stock' => 'required|string',
     ]);
-       if ($validator->fails()) {
+     if ($validator->fails()) {
         return response()->json([
             'status' => false,
             'errors' => $validator->errors()
@@ -196,11 +196,11 @@ public function Insertproduct(Request $request)
     $inserted = DB::table('products')
     ->where('id', $request->id)
     ->update([
-       'name' => $request->productname,
-       'category_id' => $request->category_id,
-       'stock' => $request->stock,
-       'updated_at' => now(),
-   ]);
+     'name' => $request->productname,
+     'category_id' => $request->category_id,
+     'stock' => $request->stock,
+     'updated_at' => now(),
+ ]);
     if ($inserted) {
         return response()->json([
             'status' => true,
@@ -217,15 +217,15 @@ public function Insertproduct(Request $request)
 public function getProducts(Request $request)
 {
   $query  = DB::table('products as pd')
- ->join('categories as c', 'pd.category_id', '=', 'c.id')
- ->select('pd.*', 'c.name as category_name');
- 
-    if ($request->filled('category_id')) {
-        $query->where('pd.category_id', $request->category_id);
-    }
+  ->join('categories as c', 'pd.category_id', '=', 'c.id')
+  ->select('pd.*', 'c.name as category_name');
 
-    $products = $query->get();
- return view('admin.inventory.addproduct', compact('products'));
+  if ($request->filled('category_id')) {
+    $query->where('pd.category_id', $request->category_id);
+}
+
+$products = $query->get();
+return view('admin.inventory.addproduct', compact('products'));
 }
 public function editProductdetails(Request $request)
 {
@@ -249,5 +249,53 @@ public function editProductdetails(Request $request)
         'details' => $details,
         'html' => $html
     ]);
+}
+public function productselect2(Request $request)
+{
+    $search = $request->input('q');
+    $products = DB::table('products')
+    ->where('name', 'LIKE', "%{$search}%")
+    ->where('category_id',$request->input('category'))
+    ->get(['id', 'name']);
+    return response()->json($products);
+}
+
+
+
+public function InsertRequestproduct(Request $request)
+{
+    if($request->submit=='add'){     
+     $validator = Validator::make($request->all(), [
+        'product' => 'required|exists:products,id',
+        'category_id' => 'required|exists:categories,id',
+        'quantity' => 'required|numeric|min:1',
+    ]);
+     if ($validator->fails()) {
+        return response()->json([
+            'status' => false,
+            'errors' => $validator->errors()
+        ], 422);
+    }
+    $inserted = DB::table('request_product_qty')->insert([
+        'product' => $request->product,
+        'user_id' => auth()->user()->id,
+        'category_id' => $request->category_id,
+        'quantity' => $request->quantity,
+        'status' => 'pending',
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+    if ($inserted) {
+        return response()->json([
+            'status' => true,
+            'message' => 'Quantity Requested  successfully!'
+        ]);
+    } else {
+        return response()->json([
+            'status' => false,
+            'message' => 'Failed to Requesting Quantity.'
+        ], 500);
+    }
+}
 }
 }

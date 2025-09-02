@@ -70,6 +70,16 @@ Route::middleware(['auth', 'checkUserType:staff'])->group(function () {
     Route::get('/staff/dashboard', function () {
         return view('staff.dashboard.index');
     })->name('staff.dashboard');
+
+    Route::match(['get', 'post'], 'staff/inventory/categoryselect2', [InventoryController::class, 'categoryselect2'])->name('inventory.categorysearch');
+
+    Route::match(['get', 'post'], 'staff/inventory/productselect2', [InventoryController::class, 'productselect2'])->name('inventory.productsearch');
+
+     Route::get('/staff/inventory/request_quantity', function () {
+        return view('staff.inventory.request_quantity');
+    })->name('staff.inventory.request_quantity');
+
+      Route::post('staff/inventory/InsertRequestproduct', [InventoryController::class, 'InsertRequestproduct'])->name('inventory.InsertRequestproduct');
 });
 
 Route::get('/', [App\Http\Controllers\WebsiteController::class, 'getWebsiteIndexDetails'])
