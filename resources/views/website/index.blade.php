@@ -342,17 +342,17 @@
             </div>
 
             <select class="filter-dropdown" id="categoryFilter">
-                <option>All Categories</option>
+                <option value="all">All Categories</option>
                 @foreach ($categories as $categories)
                 <option value="{{ ucfirst($categories->id) }}">{{ ucfirst($categories->name) }}</option>
                 @endforeach
             </select>
 
             <select class="filter-dropdown" id="stockFilter">
-                <option>All Stock Status</option>
-                <option>In Stock</option>
-                <option>Low Stock</option>
-                <option>Out of Stock</option>
+                <option value="all">All Stock Status</option>
+                <option value="high">In Stock</option>
+                <option value="low">Low Stock</option>
+                <option value="critical">Out of Stock</option>
             </select>
         </div>
 
@@ -422,7 +422,6 @@
     </div>
     <script>
         const products = @json($totalProductsDetails);
-
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.querySelector('.search-box input');
             const productRows = document.querySelectorAll('.products-table tbody tr');
@@ -453,7 +452,7 @@
         });
         function getStockStatus(stock) {
             if (stock >= 70) return { status: "In Stock", class: "high" };
-            if (stock >= 30) return { status: "Low Stock", class: "medium" };
+            if (stock > 0) return { status: "Low Stock", class: "medium" };
             return { status: "Critical", class: "low" };
         }
         function renderProducts(productsArray) {
@@ -495,29 +494,38 @@
         function filterProducts() {
             const categoryValue = document.getElementById('categoryFilter').value;
             const stockValue = document.getElementById('stockFilter').value;
-            const searchValue = document.getElementById('searchInput').value;
-            let filteredProducts = products;
-            console.log(filterProducts); 
+            const searchInput = document.getElementById('searchInput');
+            const searchValue = searchInput ? searchInput.value.toLowerCase() : '';
+            let filteredProducts = products; 
+
             if (categoryValue !== 'all') {
-                filteredProducts = products.filter(product => 
-                    product.category_id === categoryValue
+                filteredProducts = filteredProducts.filter(product => 
+                    String(product.category_id) === String(categoryValue)
                     );
             }
+
             if (stockValue !== 'all') {
-                filteredProducts = products.filter(product => {
-                    if (stockValue === 'high') return product.stock >= 70;
-                    if (stockValue === 'medium') return product.stock >= 30 && product.stock < 70;
-                    if (stockValue === 'low') return product.stock < 30;
+                filteredProducts = filteredProducts.filter(product => {
+                    const stock = Number(product.stock);
+                    if (stockValue === 'high') return stock >= 70;          
+                    if (stockValue === 'low') return stock > 0 ;
+                    if (stockValue === 'critical') return stock == 0;            
+                    return false; 
                 });
             }
+
+
             if (searchValue) {
-                filteredProducts = products.filter(product => 
+                filteredProducts = filteredProducts.filter(product => 
                     product.name.toLowerCase().includes(searchValue) ||
-                    product.category_name.toLowerCase().includes(searchValue)
+                    product.category_name.toLowerCase().includes(searchValue) ||
+                    String(product.stock).includes(searchValue)
                     );
             }
+
             renderProducts(filteredProducts);
         }
+
         renderProducts(products);
         document.getElementById('categoryFilter').addEventListener('change', filterProducts);
         document.getElementById('stockFilter').addEventListener('change', filterProducts);
