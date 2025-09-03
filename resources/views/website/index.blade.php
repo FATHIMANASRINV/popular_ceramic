@@ -19,14 +19,12 @@
             --danger: #ff5252;
             --info: #40c4ff;
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
         body {
             background-color: var(--dark-bg);
             color: var(--text-primary);
@@ -34,12 +32,10 @@
             min-height: 100vh;
             padding: 20px;
         }
-        
         .container {
             max-width: 1400px;
             margin: 0 auto;
         }
-        
         header {
             display: flex;
             justify-content: space-between;
@@ -48,13 +44,11 @@
             margin-bottom: 30px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
         .logo {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
         .logo-icon {
             width: 45px;
             height: 45px;
@@ -65,7 +59,6 @@
             justify-content: center;
             font-size: 20px;
         }
-        
         h1 {
             font-size: 28px;
             font-weight: 600;
@@ -74,12 +67,10 @@
             background-clip: text;
             color: transparent;
         }
-        
         .controls {
             display: flex;
             gap: 15px;
         }
-        
         .btn {
             padding: 10px 20px;
             border-radius: 8px;
@@ -88,29 +79,24 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
         }
-        
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
         }
-        
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
         .dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-        
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -118,55 +104,45 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
-        
         .stat-card {
             display: flex;
             flex-direction: column;
         }
-        
         .stat-card:hover {
             transform: translateY(-5px);
             background-color: var(--card-hover);
         }
-        
         .stat-title {
             color: var(--text-secondary);
             font-size: 14px;
             margin-bottom: 10px;
         }
-        
         .stat-value {
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 10px;
         }
-        
         .stat-change {
             font-size: 14px;
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        
         .positive {
             color: var(--success);
         }
-        
         .negative {
             color: var(--danger);
         }
-        
         .search-filter {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
             gap: 20px;
             margin-bottom: 30px;
         }
-        
         .search-box {
             position: relative;
         }
-        
         .search-box input {
             width: 100%;
             padding: 15px 15px 15px 45px;
@@ -177,7 +153,6 @@
             font-size: 16px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
         .search-box i {
             position: absolute;
             left: 15px;
@@ -185,7 +160,6 @@
             transform: translateY(-50%);
             color: var(--text-secondary);
         }
-        
         .filter-dropdown {
             padding: 15px;
             border-radius: 10px;
@@ -200,7 +174,6 @@
             background-position: right 15px center;
             background-size: 16px;
         }
-        
         .products-table {
             width: 100%;
             border-collapse: collapse;
@@ -209,7 +182,6 @@
             overflow: hidden;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
-        
         .products-table th {
             background-color: rgba(124, 77, 255, 0.1);
             padding: 16px;
@@ -217,20 +189,16 @@
             font-weight: 600;
             color: var(--primary-light);
         }
-        
         .products-table td {
             padding: 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
         .products-table tr:last-child td {
             border-bottom: none;
         }
-        
         .products-table tr:hover {
             background-color: var(--card-hover);
         }
-        
         .stock-bar {
             height: 8px;
             background: rgba(255, 255, 255, 0.1);
@@ -238,12 +206,10 @@
             overflow: hidden;
             margin-top: 5px;
         }
-        
         .stock-amount {
             height: 100%;
             border-radius: 4px;
         }
-        
         .high {
             background: var(--success);
         }
@@ -372,7 +338,7 @@
         <div class="search-filter">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search products...">
+                <input type="text"  placeholder="Search products...">
             </div>
 
             <select class="filter-dropdown" id="categoryFilter">
@@ -395,15 +361,17 @@
                 <tr>
                     <th>Product Name</th>
                     <th>Category</th>
+                    <th>Stock</th>
                     <th>Stock Level</th>
                 </tr>
             </thead>
             <tbody>
-               <tbody id="productsTableBody">
+             <tbody id="productsTableBody">
                 @foreach ($totalProductsDetails as $Products)
                 <tr>
                     <td>{{ ucfirst($Products->name) }}</td>
                     <td><span class="category">{{ ucfirst($Products->category_name) }}</span></td>
+                    <td><span class="category">{{ $Products->stock }}</span></td>
                     <td>
                         <div class="stock-bar">
                             <div class="stock-amount 
@@ -453,6 +421,8 @@
         </footer>
     </div>
     <script>
+        const products = @json($totalProductsDetails);
+
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.querySelector('.search-box input');
             const productRows = document.querySelectorAll('.products-table tbody tr');
@@ -481,7 +451,6 @@
                 }, 100 * index);
             });
         });
-        const products = [{{$totalProductsDetails}}];
         function getStockStatus(stock) {
             if (stock >= 70) return { status: "In Stock", class: "high" };
             if (stock >= 30) return { status: "Low Stock", class: "medium" };
@@ -502,21 +471,20 @@
                 `;
                 return;
             }
-            
             productsArray.forEach(product => {
                 const stockStatus = getStockStatus(product.stock);
-                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${product.name}</td>
-                    <td><span class="category">${product.category}</span></td>
+                    <td><span class="category">${product.category_name}</span></td>
+                    <td><span class="category">${product.stock}</span></td>
                     <td>
                         <div class="stock-bar">
                             <div class="stock-amount ${stockStatus.class}" style="width: ${product.stock}%"></div>
                         </div>
                         <div class="stock-text">
                             <span>${stockStatus.status}</span>
-                            <span>${product.stock}%</span>
+                            <span>${product.stock}</span>
                         </div>
                     </td>
                 `;
@@ -524,29 +492,28 @@
                 tableBody.appendChild(row);
             });
         }
-
         function filterProducts() {
             const categoryValue = document.getElementById('categoryFilter').value;
             const stockValue = document.getElementById('stockFilter').value;
-            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const searchValue = document.getElementById('searchInput').value;
             let filteredProducts = products;
+            console.log(filterProducts); 
             if (categoryValue !== 'all') {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.category === categoryValue
+                filteredProducts = products.filter(product => 
+                    product.category_id === categoryValue
                     );
             }
             if (stockValue !== 'all') {
-                filteredProducts = filteredProducts.filter(product => {
+                filteredProducts = products.filter(product => {
                     if (stockValue === 'high') return product.stock >= 70;
                     if (stockValue === 'medium') return product.stock >= 30 && product.stock < 70;
                     if (stockValue === 'low') return product.stock < 30;
-                    return true;
                 });
             }
             if (searchValue) {
-                filteredProducts = filteredProducts.filter(product => 
-                    product.name.toLowerCase().includes(searchValue) || 
-                    product.category.toLowerCase().includes(searchValue)
+                filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchValue) ||
+                    product.category_name.toLowerCase().includes(searchValue)
                     );
             }
             renderProducts(filteredProducts);

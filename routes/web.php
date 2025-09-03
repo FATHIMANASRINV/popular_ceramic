@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\SignupController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth; 
 
 /*
@@ -49,6 +51,13 @@ Route::middleware(['auth', 'checkUserType:admin'])->group(function () {
         return view('admin.inventory.addproduct');
     })->name('admin.inventory.addproduct');
 
+     Route::get('signup/index', function () {
+        return view('signup.index');
+    })->name('admin.signup.index');
+
+         Route::post('signup/SignupForm', [SignupController::class, 'SignupForm'])->name('signup.SignupForm');
+
+
     Route::get('/admin/inventory/addcategory', function () {
         return view('admin.inventory.addcategory');
     })->name('admin.inventory.addcategory');
@@ -59,11 +68,26 @@ Route::middleware(['auth', 'checkUserType:admin'])->group(function () {
     Route::get('admin/inventory/addcategory', [InventoryController::class, 'getcategories'])->name('admin.inventory.addcategory');
     Route::get('admin/inventory/getcategoriesDatatable', [InventoryController::class, 'getcategoriesDatatable'])->name('inventory.getcategoriesDatatable');
 
-    Route::match(['get', 'post'], 'admin/inventory/categoryselect2', [InventoryController::class, 'categoryselect2'])->name('inventory.categorysearch');
+    Route::match(['get', 'post'], 'admin/inventory/categoryselect2', [InventoryController::class, 'categoryselect2'])->name('admin.inventory.categorysearch');
 
     Route::post('admin/inventory/Insertproduct', [InventoryController::class, 'Insertproduct'])->name('inventory.Insertproduct');
+
     Route::match(['get','post'], 'admin/inventory/addproduct', [InventoryController::class, 'getProducts'])->name('admin.inventory.addproduct');
+
+
     Route::get('admin/inventory/editProductdetails', [InventoryController::class, 'editProductdetails'])->name('inventory.editProductdetails');
+
+
+
+
+    Route::post('admin/inventory/approve_quantity', [InventoryController::class, 'approve_quantity'])->name('inventory.approve_quantity');
+
+    Route::match(['get','post'], 'admin/inventory/pending_quantity', [InventoryController::class, 'getRequestedQuantityProducts'])->name('admin.inventory.pending_quantity');
+
+    Route::match(['get','post'], 'admin/report/staff_details', [ReportController::class, 'getstaff_details'])->name('admin.report.staff_details');
+
+        Route::match(['get', 'post'], 'admin/report/usersEmailselect2', [ReportController::class, 'usersEmailselect2'])->name('admin.report.usersselect2');
+
 });
 
 Route::middleware(['auth', 'checkUserType:staff'])->group(function () {
@@ -71,17 +95,23 @@ Route::middleware(['auth', 'checkUserType:staff'])->group(function () {
         return view('staff.dashboard.index');
     })->name('staff.dashboard');
 
-    Route::match(['get', 'post'], 'staff/inventory/categoryselect2', [InventoryController::class, 'categoryselect2'])->name('inventory.categorysearch');
+    Route::match(['get', 'post'], 'staff/inventory/categoryselect2', [InventoryController::class, 'categoryselect2'])->name('staff.inventory.categorysearch');
 
     Route::match(['get', 'post'], 'staff/inventory/productselect2', [InventoryController::class, 'productselect2'])->name('inventory.productsearch');
 
-     Route::get('/staff/inventory/request_quantity', function () {
+    Route::get('/staff/inventory/request_quantity', function () {
         return view('staff.inventory.request_quantity');
     })->name('staff.inventory.request_quantity');
+    Route::get('/staff/inventory/request_quantity_report', function () {
+        return view('staff.inventory.request_quantity_report');
+    })->name('staff.inventory.request_quantity_report');
 
-      Route::post('staff/inventory/InsertRequestproduct', [InventoryController::class, 'InsertRequestproduct'])->name('inventory.InsertRequestproduct');
+    Route::post('staff/inventory/InsertRequestproduct', [InventoryController::class, 'InsertRequestproduct'])->name('inventory.InsertRequestproduct');
+
+    Route::match(['get','post'], 'staff/inventory/request_quantity_report', [InventoryController::class, 'getRequestedQuantityProducts'])->name('staff.inventory.request_quantity_report');
+
 });
 
 Route::get('/', [App\Http\Controllers\WebsiteController::class, 'getWebsiteIndexDetails'])
-    ->name('website.index');
+->name('website.index');
 

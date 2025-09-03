@@ -39,7 +39,7 @@
               <a
                 class="py-2.375 text-sm mr-4 ml-4 whitespace-nowrap font-bold text-slate-700 lg:ml-0"
                 href="../pages/dashboard.html">
-                Soft UI Dashboard
+                POPULAR CERAMIC
               </a>
               <button
                 navbar-trigger

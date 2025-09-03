@@ -152,7 +152,7 @@ class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounde
         <div class="max-w-full px-3 lg:w-1/2 lg:flex-none">
           <div class="flex flex-col h-full">
             <p class="pt-2 mb-1 font-semibold">Built by developers</p>
-            <h5 class="font-bold">Soft UI Dashboard</h5>
+            <h5 class="font-bold">POPULAR CERAMIC</h5>
             <p class="mb-12">
               From colors, cards, typography to complex elements, you
               will find the full documentation.

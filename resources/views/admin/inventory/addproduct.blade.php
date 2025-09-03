@@ -131,7 +131,7 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 	<div class="flex-auto p-6 px-0 pb-2">
 		<div class="overflow-x-auto">
 			<div class="mx-auto w-full max-w-6xl p-4">
-				<table class="w-full border-collapse border border-gray-300 text-slate-600 rounded-lg shadow">
+				<table class="w-full border-collapse border border-gray-300 text-slate-600 rounded-lg shadow" id="table-wrapper">
 					<thead class="bg-gray-100">
 						<tr>
 							<th class="border border-gray-300 px-4 py-2 text-left">Product Name</th>
@@ -204,7 +204,7 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 		placeholder: 'Select a Category',
 		dropdownParent: $('#categorynameid').parent(), 
 		ajax: {
-			url: '{{ route("inventory.categorysearch") }}',
+			url: '{{ route("admin.inventory.categorysearch") }}',
 			method: 'POST',   
 			dataType: 'json',
 			delay: 250,
@@ -227,7 +227,7 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 		placeholder: 'Select a Category',
 		dropdownParent: $('#categorynameidss').parent(), 
 		ajax: {
-			url: '{{ route("inventory.categorysearch") }}',
+			url: '{{ route("admin.inventory.categorysearch") }}',
 			method: 'POST',   
 			dataType: 'json',
 			delay: 250,
@@ -260,6 +260,7 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 					$('#ProductForm')[0].reset(); 
 					$('#categorynameid').empty().trigger('change');
 					$('#ProductForm .error-text').empty();
+					$("#table-wrapper").load(location.href + " #table-wrapper > *");
 				} else {
 					toastr.error(response.message || 'Something went wrong!'); 
 				}
@@ -285,7 +286,7 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 			}
 		});
 	});
-	$('.edit-product').on('click', function(e) {
+	$(document).on('click', '.edit-product', function () {
 		var id=$(this).data('id');
 		$.ajax({
 			url: "{{ route('inventory.editProductdetails') }}",
@@ -320,6 +321,7 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 					$('#editProductForm')[0].reset(); 
 					$('#categorynameid').empty().trigger('change');
 					$('#editProductForm .error-text').empty();
+					$("#table-wrapper").load(location.href + " #table-wrapper > *");
 				} else {
 					toastr.error(response.message || 'Something went wrong!'); 
 				}

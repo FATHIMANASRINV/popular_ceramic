@@ -81,7 +81,7 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 	<div class="flex-auto p-6 px-0 pb-2">
 		<div class="overflow-x-auto">
 			<div class="mx-auto w-full max-w-6xl p-4">
-				<table class="w-full border-collapse border border-gray-300 text-slate-600 rounded-lg shadow">
+				<table class="w-full border-collapse border border-gray-300 text-slate-600 rounded-lg shadow" id="table-wrapper">
 					<thead class="bg-gray-100">
 						<tr>
 							<th class="border border-gray-300 px-4 py-2 text-left">Category Name</th>
@@ -154,6 +154,8 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 				if(response.status) {
 					document.getElementById('addCategoryModal').classList.add('hidden');
 					toastr.success(response.message);   
+					$("#table-wrapper").load(location.href + " #table-wrapper > *");
+
 				} else {
 					toastr.error(response.message || 'Something went wrong!'); 
 				}
@@ -174,7 +176,7 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 	});
 
 
-	$('.edit-category').on('click', function(e) {
+	$(document).on('click', '.edit-category', function () {
 		var id=$(this).data('id');
 		$.ajax({
 			url: "{{ route('inventory.editcategorydetails') }}",
@@ -195,38 +197,38 @@ class="modal-overlay fixed inset-0 z-[9999] flex items-center justify-center bg-
 			}
 		});
 	});
-
-$(document).ready(function(){
-
-	$('#editcategoryForm').on('submit', function(e) {
-    e.preventDefault(); 
-    $('#editcategoryForm #categoryNameError').text('');
-    $.ajax({
-        url: "{{ route('inventory.store') }}", 
-        method: "POST",
-        data: $(this).serialize(),
-        success: function(response) {
-            if(response.status) {
-                document.getElementById('editCategoryModal').classList.add('hidden');
-                toastr.success(response.message);   
-            } else {
-                toastr.error(response.message || 'Something went wrong!'); 
-            }
-        },
-        error: function(xhr) {
-            console.log(xhr.responseJSON);
-            if(xhr.status === 422) {
-                let errors = xhr.responseJSON.errors;
-                if(errors.categoryName) {
-                    $('#editcategoryForm #categoryNameError').text(errors.categoryName[0]);
-                    toastr.error('Please fix the errors and try again.'); 
-                }
-            } else {
-                toastr.error('Unexpected error occurred.');
-            }
-        }
-    });
-});
+	$(document).ready(function(){
+		$('#editcategoryForm').on('submit', function(e) {
+			e.preventDefault(); 
+			$('#editcategoryForm #categoryNameError').text('');
+			$.ajax({
+				url: "{{ route('inventory.store') }}", 
+				method: "POST",
+				data: $(this).serialize(),
+				success: function(response) {
+					if(response.status) {
+						document.getElementById('editCategoryModal').classList.add('hidden');
+						toastr.success(response.message);  
+						$("#table-wrapper").load(location.href + " #table-wrapper > *");
+						
+					} else {
+						toastr.error(response.message || 'Something went wrong!'); 
+					}
+				},
+				error: function(xhr) {
+					console.log(xhr.responseJSON);
+					if(xhr.status === 422) {
+						let errors = xhr.responseJSON.errors;
+						if(errors.categoryName) {
+							$('#editcategoryForm #categoryNameError').text(errors.categoryName[0]);
+							toastr.error('Please fix the errors and try again.'); 
+						}
+					} else {
+						toastr.error('Unexpected error occurred.');
+					}
+				}
+			});
+		});
 
 	});
 </script>

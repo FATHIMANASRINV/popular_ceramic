@@ -30,7 +30,6 @@
 				<option value="">Select category</option>
 			</select>
 			<p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="category_idError"></p>
-<input type="hidden" name="submit" value="add">
 			<label for="ProductName" class="block text-sm font-medium text-gray-700 mb-1 mt-2">
 				Product
 			</label>
@@ -69,7 +68,7 @@
 		placeholder: 'Select a Category',
 		dropdownParent: $('#categorynameidss').parent(), 
 		ajax: {
-			url: '{{ route("inventory.categorysearch") }}',
+			url: '{{ route("staff.inventory.categorysearch") }}',
 			method: 'POST',   
 			dataType: 'json',
 			delay: 250,

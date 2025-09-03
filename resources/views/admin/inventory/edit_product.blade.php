@@ -68,7 +68,7 @@
             placeholder: 'Select a Category',
             dropdownParent: $('#categorynameids').parent(), 
             ajax: {
-                url: '{{ route("inventory.categorysearch") }}',
+                url: '{{ route("admin.inventory.categorysearch") }}',
                 method: 'POST',
                 dataType: 'json',
                 delay: 250,
