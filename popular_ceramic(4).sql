@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 03, 2025 at 04:49 PM
+-- Generation Time: Sep 04, 2025 at 10:45 AM
 -- Server version: 8.0.43-0ubuntu0.22.04.1
 -- PHP Version: 7.4.33
 
@@ -167,7 +167,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `user_type`) VALUES
-(1, 'admin', 'admin@123.com', NULL, '$2y$10$n.kZLzguPoTFW.3q5FL1l.1.fcOoMl46Y66BrEkFPKai7eG950pZ2', NULL, '2025-09-03 09:38:08', '2025-09-03 09:38:11', 'admin');
+(1, 'admin', 'admin@123.com', NULL, '$2y$10$n.kZLzguPoTFW.3q5FL1l.1.fcOoMl46Y66BrEkFPKai7eG950pZ2', NULL, '2025-09-03 09:38:08', '2025-09-03 09:38:11', 'admin'),
+(2, 'Athira', 'athira@gmail.com', NULL, '$2y$10$zong8Fd1AyWqnCME8Vr1n.Q/uhHgXixIDZJdnHHoT.sX989U2Ys7G', NULL, '2025-09-03 22:59:01', '2025-09-03 22:59:01', 'salesstaff');
 
 --
 -- Indexes for dumped tables
@@ -269,7 +270,7 @@ ALTER TABLE `request_product_qty`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
