@@ -8,14 +8,14 @@ use DataTables;
 
 class InventoryController extends Controller
 {
-   public function store(Request $request)
-   {
+ public function store(Request $request)
+ {
 
     if($request->submit=='add'){     
-       $validator = Validator::make($request->all(), [
+     $validator = Validator::make($request->all(), [
         'categoryName' => 'required|string|unique:categories,name',
     ]);
-       if ($validator->fails()) {
+     if ($validator->fails()) {
         return response()->json([
             'status' => false,
             'errors' => $validator->errors()
@@ -134,12 +134,12 @@ public function categoryselect2(Request $request)
 public function Insertproduct(Request $request)
 {
     if($request->submit=='add'){     
-       $validator = Validator::make($request->all(), [
+     $validator = Validator::make($request->all(), [
         'productname' => 'required|string|unique:products,name',
         'category_id' => 'required|string',
         'stock' => 'required|string',
     ]);
-       if ($validator->fails()) {
+     if ($validator->fails()) {
         return response()->json([
             'status' => false,
             'errors' => $validator->errors()
@@ -196,11 +196,11 @@ public function Insertproduct(Request $request)
     $inserted = DB::table('products')
     ->where('id', $request->id)
     ->update([
-       'name' => $request->productname,
-       'category_id' => $request->category_id,
-       'stock' => $request->stock,
-       'updated_at' => now(),
-   ]);
+     'name' => $request->productname,
+     'category_id' => $request->category_id,
+     'stock' => $request->stock,
+     'updated_at' => now(),
+ ]);
     if ($inserted) {
         return response()->json([
             'status' => true,
@@ -265,12 +265,12 @@ public function productselect2(Request $request)
 public function InsertRequestproduct(Request $request)
 {
     if($request->submit=='add'){     
-       $validator = Validator::make($request->all(), [
+     $validator = Validator::make($request->all(), [
         'product' => 'required|exists:products,id',
         'category_id' => 'required|exists:categories,id',
         'quantity' => 'required|numeric|min:1',
     ]);
-       if ($validator->fails()) {
+     if ($validator->fails()) {
         return response()->json([
             'status' => false,
             'errors' => $validator->errors()
@@ -403,13 +403,13 @@ public function approve_quantity(Request $request)
 public function MoveToHold(Request $request)
 {
     if($request->submit=='add'){     
-       $validator = Validator::make($request->all(), [
+     $validator = Validator::make($request->all(), [
         'product' => 'required|exists:products,id',
         'category_id' => 'required|exists:categories,id',
         'quantity' => 'required|numeric|min:1',
         'remarks' => 'required',
     ]);
-       if ($validator->fails()) {
+     if ($validator->fails()) {
         return response()->json([
             'status' => false,
             'errors' => $validator->errors()
@@ -517,8 +517,9 @@ public function approve_sales(Request $request)
             ->where('id', $details->id)
             ->update([
               'status' => 'approved',
+              'approved_staff' => auth()->user()->id,
               'updated_at' => now(),
-            ]);
+          ]);
             if ($update_status) {
                 return response()->json([
                     'status' => true,
@@ -535,13 +536,14 @@ public function approve_sales(Request $request)
             ->where('id', $details->id)
             ->update([
                 'status' => 'deleted',
+                'approved_staff' => auth()->user()->id,
                 'updated_at' => now(),
             ]);
             $update_qty = DB::table('products')
             ->where('id', $details->product)
             ->update([
               'stock' => DB::raw('stock + '.$details->quantity),
-            ]);
+          ]);
             if ( $update_status) {
                 return response()->json([
                     'status' => true,

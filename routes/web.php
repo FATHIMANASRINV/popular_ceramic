@@ -131,6 +131,30 @@ Route::middleware(['auth', 'checkUserType:staff'])->group(function () {
 
 
 });
+Route::middleware(['auth', 'checkUserType:salesstaff'])->group(function () {
+
+
+     Route::get('/salesstaff/dashboard', function () {
+        return view('salesstaff.dashboard.index');
+    })->name('salesstaff.dashboard');
+
+    Route::match(['get', 'post'], 'salesstaff/inventory/categoryselect2', [InventoryController::class, 'categoryselect2'])->name('salesstaff.inventory.categorysearch');
+
+    Route::match(['get', 'post'], 'salesstaff/inventory/productselect2', [InventoryController::class, 'productselect2'])->name('salesstaff.inventory.productsearch');
+
+     Route::post('salesstaff/inventory/MoveToHold', [InventoryController::class, 'MoveToHold'])->name('salesstaff.inventory.MoveToHold');
+
+         Route::match(['get','post'], 'salesstaff/inventory/sales_details', [InventoryController::class, 'getSalesDetailsReport'])->name('salesstaff.inventory.sales_details');
+
+           Route::get('/salesstaff/inventory/sales', function () {
+        return view('salesstaff.inventory.sales');
+    })->name('salesstaff.inventory.sales'); 
+
+    Route::post('salesstaff/inventory/approve_sales', [InventoryController::class, 'approve_sales'])->name('salesstaff.inventory.approve_sales');
+
+    Route::match(['get','post'], 'salesstaff/inventory/pending_sales', [InventoryController::class, 'getpending_salesProducts'])->name('salesstaff.inventory.pending_sales');
+
+    });
 
 Route::get('/', [App\Http\Controllers\WebsiteController::class, 'getWebsiteIndexDetails'])
 ->name('website.index');
