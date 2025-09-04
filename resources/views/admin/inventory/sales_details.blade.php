@@ -46,9 +46,7 @@
 			</select>
 		</div>
 	</div>
-	@if(auth()->user()->user_type!='admin')
-	<input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-	@endif
+	
 	<div class="flex justify-end">
 		<button  
 		class="mt-4 px-6 py-2 font-bold text-white uppercase rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 text-xs tracking-tight shadow-md hover:scale-105 transition">
@@ -86,8 +84,8 @@
 							<td class="border border-gray-300 px-4 py-2 text-center">
 								@switch($Products->status)
 								@case('approved')
-								<span class="inline-flex items-center justify-center px-3 py-1 text-xs font-medium text-green-700 bg-green-100 rounded-full">
-									{{ ucfirst($Products->status) }}
+								<span class="inline-flex items-center justify-center px-3 py-1 text-xs font-medium text-green-700 bg-green-100  rounded-full">
+									Saled
 								</span>
 								@break
 								@case('hold')
@@ -113,14 +111,14 @@
 								{{ ucfirst($Products->created_at) }}
 							</td>
 							
-								@endforeach
-							</tbody>
-						</table>
-					</div>
+							@endforeach
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 @endsection

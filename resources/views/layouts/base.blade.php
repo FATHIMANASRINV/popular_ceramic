@@ -32,6 +32,20 @@
   defer
   data-site="YOUR_DOMAIN_HERE"
   src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <style>
+    .bg-green-100{
+      background-color: green;
+      color: white;
+    }
+    .bg-yellow-100
+    {
+     background-color: yellow;
+     color: black;
+   }.bg-red-100{
+     background-color: darkred;
+     color: white;
+   }
+ </style>
 </head>
 
 <body
@@ -241,7 +255,7 @@ class="text-sm transform-dropdown before:font-awesome before:leading-default bef
 @yield('content')
 
 <footer class="pt-4">
-  
+
 </footer>
 </div>
 <!-- end cards -->
