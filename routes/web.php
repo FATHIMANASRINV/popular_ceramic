@@ -51,11 +51,11 @@ Route::middleware(['auth', 'checkUserType:admin'])->group(function () {
         return view('admin.inventory.addproduct');
     })->name('admin.inventory.addproduct');
 
-     Route::get('signup/index', function () {
+    Route::get('signup/index', function () {
         return view('signup.index');
     })->name('admin.signup.index');
 
-         Route::post('signup/SignupForm', [SignupController::class, 'SignupForm'])->name('signup.SignupForm');
+    Route::post('signup/SignupForm', [SignupController::class, 'SignupForm'])->name('signup.SignupForm');
 
 
     Route::get('/admin/inventory/addcategory', function () {
@@ -82,12 +82,29 @@ Route::middleware(['auth', 'checkUserType:admin'])->group(function () {
 
     Route::post('admin/inventory/approve_quantity', [InventoryController::class, 'approve_quantity'])->name('inventory.approve_quantity');
 
+    Route::post('admin/inventory/approve_sales', [InventoryController::class, 'approve_sales'])->name('admin.inventory.approve_sales');
+
     Route::match(['get','post'], 'admin/inventory/pending_quantity', [InventoryController::class, 'getRequestedQuantityProducts'])->name('admin.inventory.pending_quantity');
 
     Route::match(['get','post'], 'admin/report/staff_details', [ReportController::class, 'getstaff_details'])->name('admin.report.staff_details');
 
-        Route::match(['get', 'post'], 'admin/report/usersEmailselect2', [ReportController::class, 'usersEmailselect2'])->name('admin.report.usersselect2');
+    Route::match(['get', 'post'], 'admin/report/usersEmailselect2', [ReportController::class, 'usersEmailselect2'])->name('admin.report.usersselect2');
 
+
+    Route::get('/admin/inventory/sales', function () {
+        return view('admin.inventory.sales');
+    })->name('admin.inventory.sales'); 
+
+
+    Route::match(['get','post'], 'admin/inventory/pending_sales', [InventoryController::class, 'getpending_salesProducts'])->name('admin.inventory.pending_sales');
+
+
+    Route::match(['get','post'], 'admin/inventory/sales_details', [InventoryController::class, 'getSalesDetailsReport'])->name('admin.inventory.sales_details');
+
+
+    Route::match(['get', 'post'], 'admin/inventory/productselect2', [InventoryController::class, 'productselect2'])->name('admin.inventory.productsearch');
+
+    Route::post('admin/inventory/MoveToHold', [InventoryController::class, 'MoveToHold'])->name('admin.inventory.MoveToHold');
 });
 
 Route::middleware(['auth', 'checkUserType:staff'])->group(function () {
@@ -97,7 +114,7 @@ Route::middleware(['auth', 'checkUserType:staff'])->group(function () {
 
     Route::match(['get', 'post'], 'staff/inventory/categoryselect2', [InventoryController::class, 'categoryselect2'])->name('staff.inventory.categorysearch');
 
-    Route::match(['get', 'post'], 'staff/inventory/productselect2', [InventoryController::class, 'productselect2'])->name('inventory.productsearch');
+    Route::match(['get', 'post'], 'staff/inventory/productselect2', [InventoryController::class, 'productselect2'])->name('staff.inventory.productsearch');
 
     Route::get('/staff/inventory/request_quantity', function () {
         return view('staff.inventory.request_quantity');
@@ -109,6 +126,9 @@ Route::middleware(['auth', 'checkUserType:staff'])->group(function () {
     Route::post('staff/inventory/InsertRequestproduct', [InventoryController::class, 'InsertRequestproduct'])->name('inventory.InsertRequestproduct');
 
     Route::match(['get','post'], 'staff/inventory/request_quantity_report', [InventoryController::class, 'getRequestedQuantityProducts'])->name('staff.inventory.request_quantity_report');
+
+    Route::post('staff/inventory/MoveToHold', [InventoryController::class, 'MoveToHold'])->name('staff.inventory.MoveToHold');
+
 
 });
 

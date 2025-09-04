@@ -377,8 +377,8 @@ public function approve_quantity(Request $request)
             ->where('id', $details->id)
             ->update([
                 'status' => 'deleted',
-              'updated_at' => now(),
-          ]);
+                'updated_at' => now(),
+            ]);
             if ( $update_status) {
                 return response()->json([
                     'status' => true,
@@ -393,6 +393,167 @@ public function approve_quantity(Request $request)
 
         }
 
+    }else{
+        return response()->json([
+            'status' => false,
+            'message' => 'having Trouble'
+        ], 500); 
+    }
+}
+public function MoveToHold(Request $request)
+{
+    if($request->submit=='add'){     
+       $validator = Validator::make($request->all(), [
+        'product' => 'required|exists:products,id',
+        'category_id' => 'required|exists:categories,id',
+        'quantity' => 'required|numeric|min:1',
+        'remarks' => 'required',
+    ]);
+       if ($validator->fails()) {
+        return response()->json([
+            'status' => false,
+            'errors' => $validator->errors()
+        ], 422);
+    }
+
+    $details= DB::table('products')
+    ->where('id', $request->product)
+    ->select('stock')
+    ->first();
+
+    if($details->stock <   $request->quantity){
+        return response()->json([
+            'status' => false,
+            'message' => 'Low Stock Total Qunatity is '.$details->stock
+        ]);
+    }
+
+    $inserted = DB::table('sales_details')->insert([
+        'product' => $request->product,
+        'user_id' => auth()->user()->id,
+        'category_id' => $request->category_id,
+        'quantity' => $request->quantity,
+        'remarks' => $request->remarks,
+        'status' => 'hold',
+        'created_at' => now(),
+    ]);
+
+    $update_status = DB::table('products')
+    ->where('id', $request->product)
+    ->update([
+        'stock' => DB::raw('stock - '.$request->quantity),
+    ]);
+    if ($inserted && $update_status) {
+        return response()->json([
+            'status' => true,
+            'message' => 'Sales Moved To Hold successfully!'
+        ]);
+    } else {
+        return response()->json([
+            'status' => false,
+            'message' => 'Failed to Saling.'
+        ], 500);
+    }
+}
+}
+
+public function getpending_salesProducts(Request $request)
+{
+  $query  = DB::table('sales_details as pd')
+  ->join('categories as c', 'pd.category_id', '=', 'c.id')
+  ->join('products as pdc', 'pdc.id', '=', 'pd.product')
+  ->join('users as ui', 'ui.id', '=', 'pd.user_id')
+  ->select('pd.*', 'c.name as category_name','pdc.name as product_name','ui.name as user_name');
+  if ($request->filled('category_id')) {
+    $query->where('pd.category_id', $request->category_id);
+}
+if ($request->filled('status')) {
+    $query->where('pd.status', $request->status);
+}else{
+    $query->where('pd.status', 'hold');
+}
+if ($request->filled('user_id')) {
+    $query->where('pd.user_id', $request->user_id);
+}
+$pending_sales = $query->get();
+return view(auth()->user()->user_type.'.inventory.pending_sales', compact('pending_sales'));
+}public function getSalesDetailsReport(Request $request)
+{
+  $query  = DB::table('sales_details as pd')
+  ->join('categories as c', 'pd.category_id', '=', 'c.id')
+  ->join('products as pdc', 'pdc.id', '=', 'pd.product')
+  ->join('users as ui', 'ui.id', '=', 'pd.user_id')
+  ->select('pd.*', 'c.name as category_name','pdc.name as product_name','ui.name as user_name');
+  if ($request->filled('category_id')) {
+    $query->where('pd.category_id', $request->category_id);
+}
+if ($request->filled('status')!='all') {
+    $query->where('pd.status', $request->status);
+}
+if ($request->filled('user_id')) {
+    $query->where('pd.user_id', $request->user_id);
+}
+$pending_sales = $query->get();
+return view(auth()->user()->user_type.'.inventory.sales_details', compact('pending_sales'));
+}
+public function approve_sales(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'id' => 'required|exists:sales_details,id',
+    ]);
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => false,
+            'errors' => $validator->errors()
+        ], 422);
+    }
+    $details= DB::table('sales_details')
+    ->where('id', $request->id)
+    ->where('status','hold')
+    ->first();
+    if($details->status=='hold'){
+        if($request->submit=='approve'){
+            $update_status = DB::table('sales_details')
+            ->where('id', $details->id)
+            ->update([
+              'status' => 'approved',
+              'updated_at' => now(),
+            ]);
+            if ($update_status) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Approved  successfully!'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Failed to Approving'
+                ], 500);
+            }
+        }elseif($request->submit=='deleted'){
+            $update_status = DB::table('sales_details')
+            ->where('id', $details->id)
+            ->update([
+                'status' => 'deleted',
+                'updated_at' => now(),
+            ]);
+            $update_qty = DB::table('products')
+            ->where('id', $details->product)
+            ->update([
+              'stock' => DB::raw('stock + '.$details->quantity),
+            ]);
+            if ( $update_status) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Rejected  successfully!'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Failed to Rejecting'
+                ], 500);
+            }
+        }
     }else{
         return response()->json([
             'status' => false,

@@ -15,6 +15,14 @@ php artisan make:model Inventory
 
 
 php artisan make:migration create_mytable_table
+php artisan migrate --path=/database/migrations/2025_09_04_050810_create_sales_details.php
+
+
+
+
+
+
+
 
 truncate tables
 --------

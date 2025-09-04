@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('title', 'Add Quantity')
+@section('title', 'Sales')
 @section('header')
 <style>
 	.modal-overlay {
@@ -51,10 +51,23 @@
 			@error('quantity') border-red-500 @enderror"
 			/>
 			<p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="quantityError"></p>
+			<label for="ProductName" class="block text-sm font-medium text-gray-700 mb-1 mt-2">
+				Remarks
+			</label>
+			<input 
+			type="text" 
+			id="remarks" 
+			name="remarks" 
+			required 
+			placeholder="Enter Remarks"    
+			class="w-full rounded-md border border-gray-300 px-3 py-2 mb-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500
+			@error('remarks') border-red-500 @enderror"
+			/>
+			<p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="remarksError"></p>
 			<div class="flex justify-end">
 				<button  
 				class="mt-4 px-6 py-2 font-bold text-white uppercase rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 text-xs tracking-tight shadow-md hover:scale-105 transition">
-				Submit
+				Move To Hold
 			</button>
 		</div>
 	</form>
@@ -69,7 +82,7 @@
 		placeholder: 'Select a Category',
 		dropdownParent: $('#categorynameidss').parent(), 
 		ajax: {
-			url: '{{ route("staff.inventory.categorysearch") }}',
+			url: '{{ route(auth()->user()->user_type.".inventory.categorysearch") }}',
 			method: 'POST',   
 			dataType: 'json',
 			delay: 250,
@@ -93,7 +106,7 @@
 		placeholder: 'Select a Product',
 		dropdownParent: $('#productnameajax').parent(), 
 		ajax: {
-			url: '{{ route("staff.inventory.productsearch") }}',
+			url: '{{ route(auth()->user()->user_type.".inventory.productsearch") }}',
 			method: 'POST',   
 			dataType: 'json',
 			delay: 250,
@@ -123,7 +136,7 @@
 	$('#requestProductForm').on('submit', function(e) {
 		e.preventDefault(); 
 		$.ajax({
-			url: "{{ route('inventory.InsertRequestproduct') }}",
+			url: '{{ route(auth()->user()->user_type.".inventory.MoveToHold") }}',
 			method: "POST",
 			data: $(this).serialize(),
 			success: function(response) {
@@ -158,62 +171,5 @@
 			}
 		});
 	});
-	// $('.edit-product').on('click', function(e) {
-	// 	var id=$(this).data('id');
-	// 	$.ajax({
-	// 		url: "{{ route('inventory.editProductdetails') }}",
-	// 		method: "GET",
-	// 		data: { id: id },
-	// 		success: function(response) {
-	// 			if(response.status){
-	// 				$('.append-datas').empty().html(response.html);
-	// 				openeditModal();
-	// 			} 
-	// 		},
-	// 		error: function(xhr) {
-	// 			console.log(xhr.responseJSON);
-	// 			if(xhr.status === 422) {
-	// 				let errors = xhr.responseJSON.errors;
-	// 				toastr.error('Unexpected error occurred.');
-	// 			}
-	// 		}
-	// 	});
-	// });
-	// $(document).on('submit', '#editProductForm', function(e) {
-	// 	e.preventDefault();
-
-	// 	$.ajax({
-	// 		url: "{{ route('inventory.Insertproduct') }}",
-	// 		method: "POST",
-	// 		data: $(this).serialize(),
-	// 		success: function(response) {
-	// 			if (response.status) {
-	// 				$('#editProductModal').addClass('hidden');
-	// 				toastr.success(response.message);   
-	// 				$('#editProductForm')[0].reset(); 
-	// 				$('#categorynameid').empty().trigger('change');
-	// 				$('#editProductForm .error-text').empty();
-	// 			} else {
-	// 				toastr.error(response.message || 'Something went wrong!'); 
-	// 			}
-	// 		},
-	// 		error: function(xhr) {
-	// 			if (xhr.status === 422) {
-	// 				let errors = xhr.responseJSON.errors;
-	// 				$('#editProductForm .error-text').empty();
-	// 				$.each(errors, function(field, messages) {
-	// 					let errorElement = $('#editProductForm #' + field + 'Error');
-	// 					if (errorElement.length) {
-	// 						errorElement.empty().text(messages[0]);
-	// 					}
-	// 				});
-	// 				toastr.error('Please fix the errors and try again.'); 
-	// 			} else {
-	// 				toastr.error('Unexpected error occurred.');
-	// 			}
-	// 		}
-	// 	});
-	// });
-
 </script>
 @endsection
