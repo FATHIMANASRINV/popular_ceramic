@@ -26,7 +26,7 @@
   data-site="YOUR_DOMAIN_HERE"
   src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body
 class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
@@ -176,7 +176,7 @@ or
     placeholder="Name"
     aria-label="Name"
     aria-describedby="email-addon" />
-        <p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="nameError"></p>
+    <p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="nameError"></p>
 
   </div>
   <div class="mb-4">
@@ -186,8 +186,14 @@ or
     placeholder="Email"
     aria-label="Email"
     aria-describedby="email-addon" />
-            <p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="emailError"></p>
-
+    <p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="emailError"></p>
+  </div>
+  <div class="mb-4">
+    <select class="" id="user_type" style="width: 100%;" name="user_type"   >
+      <option value="staff">Staff</option>
+      <option value="salesstaff">Sales Staff</option>
+    </select>
+    <p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="passwordError"></p>
   </div>
   <div class="mb-4">
     <input
@@ -196,8 +202,7 @@ or
     placeholder="Password"
     aria-label="Password"
     aria-describedby="password-addon" />
-                <p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="passwordError"></p>
-
+    <p class="text-red-600 text-sm error-text" style="font-size: 10px;" id="passwordError"></p>
   </div>
   <div class="min-h-6 pl-6.92 mb-0.5 block">
     <input
@@ -245,7 +250,10 @@ src="../assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5"
 async></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+  $('#user_type').select2({
+  });
   $('#signupform').on('submit', function(e) {
     e.preventDefault(); 
     $.ajax({

@@ -50,6 +50,7 @@
 					<thead class="bg-gray-100">
 						<tr>
 							<th class="border border-gray-300 px-4 py-2 text-left">User Name</th>
+							<th class="border border-gray-300 px-4 py-2 text-left">User Type</th>
 							
 							<th class="border border-gray-300 px-4 py-2 text-left">Email</th>
 							<th class="border border-gray-300 px-4 py-2 text-left">Join Date</th>
@@ -60,6 +61,7 @@
 						@foreach ($user_details as $Products)
 						<tr class="hover:bg-gray-50">
 							<td class="border border-gray-300 px-4 py-2">{{ ucfirst($Products->name) }}</td>
+							<td class="border border-gray-300 px-4 py-2">{{ ucfirst($Products->user_type) }}</td>
 							<td class="border border-gray-300 px-4 py-2">{{ ucfirst($Products->email) }}</td>
 							<td class="border border-gray-300 px-4 py-2">{{ ucfirst($Products->created_at) }}</td>
 						</tr>

@@ -12,7 +12,6 @@ class ReportController extends Controller
    public function getstaff_details(Request $request)
    {
       $query  = DB::table('users as pd')
-      ->where('pd.user_type','staff')
       ->select('pd.*');
       if ($request->filled('user_id')) {
         $query->where('pd.id', $request->user_id);
