@@ -81,10 +81,14 @@ class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inhe
 </ol>
 <h6 class="mb-0 font-bold capitalize">@yield('title')</h6>
 </nav>
-
 <div
 class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
 <div class="flex items-center md:ml-auto md:pr-4">
+<span class="h-full bg-gradient-to-tl from-purple-700 to-pink-500 rounded-xl" style="padding-bottom:5px;padding-top:5px;padding-left:10px;padding-right:10px;color:white;border-radius:50px;max-width: 200px;" title="{{ auth()->user()->name }}">
+    <b>{{ auth()->user()->name }}</b>
+</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
   <div
   class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
   <span
