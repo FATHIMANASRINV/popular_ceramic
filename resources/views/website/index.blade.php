@@ -304,97 +304,84 @@
                 <h1> Stock Dashboard</h1>
             </div>
             <div class="controls">
-                <a href="{{ route('custom.login') }}"><button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Login</button></a>
-                <button class="btn btn-secondary"><i class="fas fa-download"></i> Export</button>
-            </div>
-        </header>
+               @if (Auth::check())
+               @php
+               $userType = auth()->user()->user_type;
+               @endphp  
+               <a href="{{ route($userType.'.dashboard') }}"><button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Dashboard</button></a>
+               
+               @else
+               <a href="{{ route('custom.login') }}"><button class="btn btn-primary"><i class="fas fa-sync-alt"></i> Login</button></a>
+               @endif
+             <!-- <a href="{{ route('website.export.pdf') }}" class="btn btn-secondary">
+    <i class="fas fa-download"></i> Export
+</a> -->
 
-        <div class="dashboard">
-            <div class="card stat-card">
-                <span class="stat-title">TOTAL PRODUCTS</span>
-                <span class="stat-value">{{ $totalProducts }}</span>
-                <span class="stat-change positive"><i class="fas fa-arrow-up"></i> 12% from last week</span>
-            </div>
+        </div>
+    </header>
 
-            <div class="card stat-card">
-                <span class="stat-title">IN STOCK</span>
-                <span class="stat-value">{{ $inStock }}</span>
-                <span class="stat-change positive"><i class="fas fa-arrow-up"></i> 8% from last week</span>
-            </div>
+    
 
-            <div class="card stat-card">
-                <span class="stat-title">LOW STOCK</span>
-                <span class="stat-value">{{ $lowStock }}</span>
-                <span class="stat-change negative"><i class="fas fa-arrow-down"></i> 3% from last week</span>
-            </div>
-
-            <div class="card stat-card">
-                <span class="stat-title">OUT OF STOCK</span>
-                <span class="stat-value">{{ $outOfStock }}</span>
-                <span class="stat-change positive"><i class="fas fa-arrow-down"></i> 2% from last week</span>
-            </div>
+    <div class="search-filter">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text"  placeholder="Search products...">
         </div>
 
-        <div class="search-filter">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text"  placeholder="Search products...">
-            </div>
-
-            <select class="filter-dropdown" id="categoryFilter">
-                <option value="all">All Categories</option>
-                @foreach ($categories as $categories)
-                <option value="{{ ucfirst($categories->id) }}">{{ ucfirst($categories->name) }}</option>
-                @endforeach
-            </select>
-
-            <select class="filter-dropdown" id="stockFilter">
-                <option value="all">All Stock Status</option>
-                <option value="high">In Stock</option>
-                <option value="low">Low Stock</option>
-                <option value="critical">Out of Stock</option>
-            </select>
-        </div>
-
-        <table class="products-table">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Category</th>
-                    <th>Stock</th>
-                    <th>Stock Level</th>
-                </tr>
-            </thead>
-            <tbody>
-             <tbody id="productsTableBody">
-                @foreach ($totalProductsDetails as $Products)
-                <tr>
-                    <td>{{ ucfirst($Products->name) }}</td>
-                    <td><span class="category">{{ ucfirst($Products->category_name) }}</span></td>
-                    <td><span class="category">{{ $Products->stock }}</span></td>
-                    <td>
-                        <div class="stock-bar">
-                            <div class="stock-amount 
-                            @if($Products->stock >= 70) high 
-                            @elseif($Products->stock >= 30) medium 
-                            @else low 
-                            @endif" 
-                            style="width: {{ $Products->stock }}%">
-                        </div>
-                    </div>
-                    <div class="stock-text">
-                        <span>
-                            @if($Products->stock >= 70) In Stock 
-                            @elseif($Products->stock >= 30) Low Stock 
-                            @else Critical 
-                            @endif
-                        </span>
-                        <span>{{ $Products->stock }}</span>
-                    </div>
-                </td>
-            </tr>
+        <select class="filter-dropdown" id="categoryFilter">
+            <option value="all">All Categories</option>
+            @foreach ($categories as $categories)
+            <option value="{{ ucfirst($categories->id) }}">{{ ucfirst($categories->name) }}</option>
             @endforeach
-        </tbody>
+        </select>
+
+        <select class="filter-dropdown" id="stockFilter">
+            <option value="all">All Stock Status</option>
+            <option value="high">In Stock</option>
+            <option value="low">Low Stock</option>
+            <option value="critical">Out of Stock</option>
+        </select>
+    </div>
+
+    <table class="products-table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Stock Level</th>
+            </tr>
+        </thead>
+        <tbody>
+           <tbody id="productsTableBody">
+            @foreach ($totalProductsDetails as $Products)
+            <tr>
+                <td>{{ ucfirst($Products->name) }}</td>
+                <td><span class="category">{{ ucfirst($Products->category_name) }}</span></td>
+                <td><span class="category">{{ $Products->stock }}</span></td>
+                <td>
+                    <div class="stock-bar">
+                        <div class="stock-amount 
+                        @if($Products->stock >= 70) high 
+                        @elseif($Products->stock >= 30) medium 
+                        @else low 
+                        @endif" 
+                        style="width: {{ $Products->stock }}%">
+                    </div>
+                </div>
+                <div class="stock-text">
+                    <span>
+                        @if($Products->stock >= 70) In Stock 
+                        @elseif($Products->stock >= 30) Low Stock 
+                        @else Critical 
+                        @endif
+                    </span>
+                    <span>{{ $Products->stock }}</span>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
               <!--   <tr>
                     <td>Wireless Bluetooth Headphones</td>
                     <td><span class="category">Electronics</span></td>
@@ -416,9 +403,9 @@
                 </tr> -->
             </tbody>
         </table>
-        <footer>
-            <p>© 2023  Stock Dashboard | Last updated: Today at 14:25</p>
-        </footer>
+       <!--  <footer class="mt-6">
+            <p>© {{ date('Y') }}  Stock Dashboard</p>
+        </footer> -->
     </div>
     <script>
         const products = @json($totalProductsDetails);

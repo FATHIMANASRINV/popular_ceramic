@@ -5,6 +5,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth; 
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /*
 |--------------------------------------------------------------------------
@@ -158,4 +159,10 @@ Route::middleware(['auth', 'checkUserType:salesstaff'])->group(function () {
 
 Route::get('/', [App\Http\Controllers\WebsiteController::class, 'getWebsiteIndexDetails'])
 ->name('website.index');
+
+
+Route::get('/website/export-pdf', [App\Http\Controllers\WebsiteController::class, 'exportWebsiteIndexPdf'])->name('website.export.pdf');
+
+
+
 
