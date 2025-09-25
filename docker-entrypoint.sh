@@ -1,15 +1,23 @@
 #!/bin/sh
 set -e
 
-# Optional: clear caches before migrations
+echo "🚀 Starting Laravel container..."
+
+# Clear old caches
 php artisan config:clear
 php artisan cache:clear
 php artisan route:clear
 php artisan view:clear
 
-# Run migrations & seed (only at runtime)
+# Run migrations & seeders in production (force = no prompt)
 php artisan migrate --force
-php artisan db:seed
+php artisan db:seed --force || true   # optional: ignore if no seeder
 
-# Serve Laravel
-php artisan serve --host=0.0.0.0 --port=8000
+# Rebuild caches
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan optimize
+
+# Start Laravel
+exec php artisan serve --host=0.0.0.0 --port=8000
