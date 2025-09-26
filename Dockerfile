@@ -1,4 +1,4 @@
-# -----------------------------
+# ----------------------------- 
 # Stage 1: Composer dependencies
 # -----------------------------
 FROM composer:2.5 AS vendor
@@ -18,7 +18,7 @@ FROM php:8.2-fpm
 
 WORKDIR /var/www
 
-# Install PHP extensions + MySQL PDO + OPcache
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
+    default-mysql-client \
     default-libmysqlclient-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
     && docker-php-ext-enable opcache \
