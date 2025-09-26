@@ -135,7 +135,7 @@ public function Insertproduct(Request $request)
 {
     if($request->submit=='add'){     
      $validator = Validator::make($request->all(), [
-        'productname' => 'required|string',
+        'productname' => 'required|string|unique:products,name',
         'category_id' => 'required|string',
         'stock' => 'required|string',
     ]);
