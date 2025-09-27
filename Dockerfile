@@ -14,7 +14,7 @@ FROM php:8.2-fpm
 
 WORKDIR /var/www
 
-# Install PHP extensions + MySQL PDO + enable OPcache
+# Install PHP extensions + MySQL PDO + OPcache
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -28,16 +28,13 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable opcache \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy OPcache config
-COPY opcache.ini /usr/local/etc/php/conf.d/
-
 # Copy vendor from previous stage
 COPY --from=vendor /var/www/vendor ./vendor
 
 # Copy the rest of the application
 COPY . .
 
-# Set permissions for storage & bootstrap/cache
+# Set permissions for storage & cache
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
