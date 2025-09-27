@@ -2,7 +2,7 @@ FROM php:8.2-fpm
 
 WORKDIR /var/www
 
-# Install system dependencies + MySQL PDO
+# Install PHP extensions + MySQL PDO
 RUN apt-get update && apt-get install -y \
     git \
     curl \
