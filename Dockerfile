@@ -1,9 +1,8 @@
 FROM php:8.2-fpm
 
-# Set working directory
 WORKDIR /var/www
 
-# Install system dependencies and PHP extensions
+# Install system dependencies + MySQL PDO
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -12,8 +11,9 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    libpq-dev \
-    && docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd
+    default-libmysqlclient-dev \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
