@@ -28,17 +28,20 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable opcache \
     && rm -rf /var/lib/apt/lists/*
 
+# Add OPcache configuration
+COPY opcache.ini /usr/local/etc/php/conf.d/
+
 # Copy vendor from previous stage
 COPY --from=vendor /var/www/vendor ./vendor
 
 # Copy the rest of the application
 COPY . .
 
-# Set permissions for storage & cache
+# Set permissions for storage & bootstrap/cache
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Laravel optimization (precompile configs, routes, views)
+# Precompile Laravel caches for performance
 RUN php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache \
