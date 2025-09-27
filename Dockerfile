@@ -1,55 +1,41 @@
-# Stage 1: Composer dependencies (caches vendor for faster builds)
+# Stage 1: Composer dependencies
 FROM composer:2.5 AS vendor
-
 WORKDIR /var/www
-
-# Copy composer files only to leverage Docker cache
 COPY composer.json composer.lock ./
-
-# Install PHP dependencies (no dev)
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Stage 2: PHP-FPM
 FROM php:8.2-fpm
-
 WORKDIR /var/www
 
-# Install PHP extensions + MySQL PDO + OPcache
+# PHP extensions + OPcache
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip \
-    default-libmysqlclient-dev \
+    git curl libpng-dev libonig-dev libxml2-dev zip unzip default-libmysqlclient-dev \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd \
     && docker-php-ext-enable opcache \
     && rm -rf /var/lib/apt/lists/*
 
-# Add OPcache configuration
+# Copy OPcache config
 COPY opcache.ini /usr/local/etc/php/conf.d/
 
-# Copy vendor from previous stage
+# Copy vendor
 COPY --from=vendor /var/www/vendor ./vendor
 
-# Copy the rest of the application
+# Copy app code (includes artisan)
 COPY . .
 
-# Set permissions for storage & bootstrap/cache
+# Run Laravel package discovery now that artisan exists
+RUN php artisan package:discover --ansi
+
+# Set permissions
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Precompile Laravel caches for performance
+# Laravel optimization
 RUN php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache \
     && php artisan optimize
 
-# Expose port
 EXPOSE 8000
-
-# CMD: Run migrations (force), then serve Laravel
-CMD php artisan migrate --force && \
-    php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
