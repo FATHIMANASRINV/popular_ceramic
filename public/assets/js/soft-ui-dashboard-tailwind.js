@@ -22,7 +22,6 @@ var root = window.location.pathname.split("/")
 if (!aux.includes("pages")) {
   page = "dashboard";
 }
-alert(to_build);
 loadStylesheet(to_build + "assets/css/perfect-scrollbar.css");
 loadJS(to_build + "assets/js/perfect-scrollbar.js", true);
 
