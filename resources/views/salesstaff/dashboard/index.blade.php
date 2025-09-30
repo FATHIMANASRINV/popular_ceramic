@@ -171,14 +171,14 @@ class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounde
       <div
       class="h-full bg-gradient-to-tl from-purple-700 to-pink-500 rounded-xl">
       <img
-      src="../assets/img/shapes/waves-white.svg"
+      src="../public/assets/img/shapes/waves-white.svg"
       class="absolute top-0 hidden w-1/2 h-full lg:block"
       alt="waves" />
       <div
       class="relative flex items-center justify-center h-full">
       <img
       class="relative z-20 w-full pt-6"
-      src="../assets/img/illustrations/rocket-white.png"
+      src="../public/assets/img/illustrations/rocket-white.png"
       alt="rocket" />
     </div>
   </div>
@@ -192,7 +192,7 @@ class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounde
   class="border-black/12.5 shadow-soft-xl relative flex h-full min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border p-4">
   <div
   class="relative h-full overflow-hidden bg-cover rounded-xl"
-  style="background-image: url('../assets/img/ivancik.jpg')">
+  style="background-image: url('../public/assets/img/ivancik.jpg')">
   <span
   class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-gray-900 to-slate-800 opacity-80"></span>
   <div class="relative z-10 flex flex-col flex-auto h-full p-4">
@@ -580,7 +580,7 @@ aria-valuemax="100"></div>
     <div class="flex px-2 py-1">
       <div>
         <img
-        src="../assets/img/small-logos/logo-xd.svg"
+        src="../public/assets/img/small-logos/logo-xd.svg"
         class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
         alt="xd" />
       </div>
@@ -600,7 +600,7 @@ aria-valuemax="100"></div>
     data-target="tooltip_trigger"
     data-placement="bottom">
     <img
-    src="../assets/img/team-1.jpg"
+    src="../public/assets/img/team-1.jpg"
     class="w-full rounded-full"
     alt="team1" />
   </a>
@@ -619,7 +619,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-2.jpg"
+src="../public/assets/img/team-2.jpg"
 class="w-full rounded-full"
 alt="team2" />
 </a>
@@ -638,7 +638,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-3.jpg"
+src="../public/assets/img/team-3.jpg"
 class="w-full rounded-full"
 alt="team3" />
 </a>
@@ -657,7 +657,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-4.jpg"
+src="../public/assets/img/team-4.jpg"
 class="w-full rounded-full"
 alt="team4" />
 </a>
@@ -707,7 +707,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   <div class="flex px-2 py-1">
     <div>
       <img
-      src="../assets/img/small-logos/logo-atlassian.svg"
+      src="../public/assets/img/small-logos/logo-atlassian.svg"
       class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
       alt="atlassian" />
     </div>
@@ -727,7 +727,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   data-target="tooltip_trigger"
   data-placement="bottom">
   <img
-  src="../assets/img/team-2.jpg"
+  src="../public/assets/img/team-2.jpg"
   class="w-full rounded-full"
   alt="team5" />
 </a>
@@ -746,7 +746,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-4.jpg"
+src="../public/assets/img/team-4.jpg"
 class="w-full rounded-full"
 alt="team6" />
 </a>
@@ -796,7 +796,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   <div class="flex px-2 py-1">
     <div>
       <img
-      src="../assets/img/small-logos/logo-slack.svg"
+      src="../public/assets/img/small-logos/logo-slack.svg"
       class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
       alt="team7" />
     </div>
@@ -816,7 +816,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   data-target="tooltip_trigger"
   data-placement="bottom">
   <img
-  src="../assets/img/team-3.jpg"
+  src="../public/assets/img/team-3.jpg"
   class="w-full rounded-full"
   alt="team8" />
 </a>
@@ -835,7 +835,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-1.jpg"
+src="../public/assets/img/team-1.jpg"
 class="w-full rounded-full"
 alt="team9" />
 </a>
@@ -885,7 +885,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   <div class="flex px-2 py-1">
     <div>
       <img
-      src="../assets/img/small-logos/logo-spotify.svg"
+      src="../public/assets/img/small-logos/logo-spotify.svg"
       class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
       alt="spotify" />
     </div>
@@ -905,7 +905,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   data-target="tooltip_trigger"
   data-placement="bottom">
   <img
-  src="../assets/img/team-4.jpg"
+  src="../public/assets/img/team-4.jpg"
   class="w-full rounded-full"
   alt="user1" />
 </a>
@@ -924,7 +924,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-3.jpg"
+src="../public/assets/img/team-3.jpg"
 class="w-full rounded-full"
 alt="user2" />
 </a>
@@ -943,7 +943,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-4.jpg"
+src="../public/assets/img/team-4.jpg"
 class="w-full rounded-full"
 alt="user3" />
 </a>
@@ -962,7 +962,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-1.jpg"
+src="../public/assets/img/team-1.jpg"
 class="w-full rounded-full"
 alt="user4" />
 </a>
@@ -1012,7 +1012,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   <div class="flex px-2 py-1">
     <div>
       <img
-      src="../assets/img/small-logos/logo-jira.svg"
+      src="../public/assets/img/small-logos/logo-jira.svg"
       class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
       alt="jira" />
     </div>
@@ -1032,7 +1032,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   data-target="tooltip_trigger"
   data-placement="bottom">
   <img
-  src="../assets/img/team-4.jpg"
+  src="../public/assets/img/team-4.jpg"
   class="w-full rounded-full"
   alt="user5" />
 </a>
@@ -1082,7 +1082,7 @@ class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
   <div class="flex px-2 py-1">
     <div>
       <img
-      src="../assets/img/small-logos/logo-invision.svg"
+      src="../public/assets/img/small-logos/logo-invision.svg"
       class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
       alt="invision" />
     </div>
@@ -1102,7 +1102,7 @@ class="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
   data-target="tooltip_trigger"
   data-placement="bottom">
   <img
-  src="../assets/img/team-1.jpg"
+  src="../public/assets/img/team-1.jpg"
   class="w-full rounded-full"
   alt="user6" />
 </a>
@@ -1121,7 +1121,7 @@ class="relative z-20 inline-flex items-center justify-center w-6 h-6 -ml-4 text-
 data-target="tooltip_trigger"
 data-placement="bottom">
 <img
-src="../assets/img/team-4.jpg"
+src="../public/assets/img/team-4.jpg"
 class="w-full rounded-full"
 alt="user7" />
 </a>

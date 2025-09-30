@@ -101,7 +101,7 @@ class="p-6 px-1 pt-0 text-center bg-transparent border-t-0 border-t-solid rounde
   <div
   class="absolute inset-x-0 top-0 z-0 h-full -ml-16 bg-cover skew-x-10"
   style="
-  background-image: url('../assets/img/curved-images/curved6.jpg');
+  background-image: url('./assets/img/curved-images/curved6.jpg');
   "></div>
 </div>
 </div>

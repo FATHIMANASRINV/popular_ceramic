@@ -16,6 +16,7 @@ class CreateRequestProductQty extends Migration
         Schema::create('request_product_qty', function (Blueprint $table) {
             $table->id();
             $table->integer('product');     
+            $table->integer('user_id');     
             $table->integer('category_id');     
             $table->integer('quantity');     
             $table->string('status');

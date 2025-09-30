@@ -7,8 +7,8 @@
     <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="../assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+      href="./assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
     <title>@yield('title', 'Login')</title>
      @yield('header')
     <link
@@ -17,10 +17,10 @@
     <script
       src="https://kit.fontawesome.com/42d5adcbca.js"
       crossorigin="anonymous"></script>
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
     <link
-      href="../assets/css/soft-ui-dashboard-tailwind.css?v=1.0.5"
+      href="./assets/css/soft-ui-dashboard-tailwind.css?v=1.0.5"
       rel="stylesheet" />
     <script
       defer
@@ -38,7 +38,7 @@
               class="flex items-center justify-between w-full p-0 pl-6 mx-auto flex-wrap-inherit">
               <a
                 class="py-2.375 text-sm mr-4 ml-4 whitespace-nowrap font-bold text-slate-700 lg:ml-0"
-                href="../pages/dashboard.html">
+                href="./pages/dashboard.html">
                 POPULAR CERAMIC
               </a>
               <button
@@ -153,8 +153,8 @@
       </div>
     </footer>
   </body>
-  <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
+  <script src="./assets/js/plugins/perfect-scrollbar.min.js" async></script>
   <script
-    src="../assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5"
+    src="./assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5"
     async></script>
 </html>

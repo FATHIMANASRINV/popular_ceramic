@@ -17,6 +17,7 @@ class CreateSalesDetails extends Migration
             $table->id();
             $table->timestamps();
               $table->integer('user_id');     
+              $table->integer('approved_staff');     
             $table->integer('product');     
             $table->integer('category_id');     
             $table->integer('quantity');     

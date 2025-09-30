@@ -7,8 +7,8 @@
   <link
   rel="apple-touch-icon"
   sizes="76x76"
-  href="../assets/img/apple-icon.png" />
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  href="./assets/img/apple-icon.png" />
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
   <title>Signup</title>
   <link
   href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
@@ -16,10 +16,10 @@
   <script
   src="https://kit.fontawesome.com/42d5adcbca.js"
   crossorigin="anonymous"></script>
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
   <link
-  href="../assets/css/soft-ui-dashboard-tailwind.css?v=1.0.5"
+  href="./assets/css/soft-ui-dashboard-tailwind.css?v=1.0.5"
   rel="stylesheet" />
   <script
   defer
@@ -35,7 +35,7 @@ class="m-0 font-sans antialiased font-normal bg-white text-start text-base leadi
     <div
     class="relative flex items-start pt-12 pb-56 m-4 overflow-hidden bg-center bg-cover min-h-50-screen rounded-xl"
     style="
-    background-image: url('../assets/img/curved-images/curved14.jpg');
+    background-image: url('./assets/img/curved-images/curved14.jpg');
     ">
     <span
     class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-gray-900 to-slate-800 opacity-60"></span>
@@ -244,9 +244,9 @@ or
 </section>
 </main>
 </body>
-<script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
+<script src="./assets/js/plugins/perfect-scrollbar.min.js" async></script>
 <script
-src="../assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5"
+src="./assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5"
 async></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
